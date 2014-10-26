@@ -1,0 +1,57 @@
+---
+title: "Statistical Inference Project"
+output: html_document
+---
+```{r Global_options, echo=FALSE}
+        library(knitr)
+        library(ggplot2)
+        set.seed(123)
+        opts_chunk$set(echo = FALSE) 
+setwd("D:/COURSES/Coursera/06_Statistical Inference/Project")
+```
+###PART 2: Analysis of the ToothGrowth data
+
+##### 2.1 Load the ToothGrowth data and perform some basic exploratory data analyses
+```{r, fig.width=6, fig.height=3, fig.align='center'}
+data(ToothGrowth)
+boxplot(len ~ supp * dose, data=ToothGrowth, ylab="Tooth Length", main="Boxplot of Tooth Growth Data")
+```
+As we can see on the boxplot, on average the length of the tooth increases as the dose also increases. 60 patients received two kinds of supplement in dose varying from Min. : 0.5 to Max. : 2
+
+##### 2.2 Provide a basic summary of the data
+```{r}
+head(ToothGrowth)
+```
+ToothGrowth has 60 observations of 3 variables: `r names(ToothGrowth)`.
+A summary of the data is as follow:
+```{r}
+summary(ToothGrowth)
+```
+
+##### 2.3 Use confidence intervals and hypothesis tests to compare tooth growth by supp and dose.
+The number of sample is not big enough to apply the CLT. The following analysis assume Normal distribution of the data in order to generate confidence intervals and perform t-tests.
+
+It is intended to study whether the means of the two groups are equal to each other. 
+-The null hypothesis is that the two means are equal.
+-The alternative is that they are different.
+* At dose 0.5mg 
+```{r}
+t.test(len~supp, paired=FALSE, var.equal=FALSE, subset=ToothGrowth$dose==0.5, data=ToothGrowth)
+```
+* At dose 1mg 
+```{r}
+t.test(len~supp, paired=FALSE, var.equal=FALSE, subset=ToothGrowth$dose==1, data=ToothGrowth)
+```
+* At dose 2mg 
+```{r}
+t.test(len~supp, paired=FALSE, var.equal=FALSE, subset=ToothGrowth$dose==2, data=ToothGrowth)
+```
+
+##### 2.4 State your conclusions and the assumptions needed for your conclusions. 
+An inference analysis was carried out on ToothCrowth data-set. The method selected to infere this conclusion was T-test analysis for the various dosasges levels.
+
+###### 2.4.1 there was a significant difference in average tooth length, depending upon the dosage, the higher the supplement dosage, the longer the tooth
+
+###### 2.4.2 For dosage levels 0.5mg and 1mg, there's a significant greater effect for OJ than VC on tooth growth length.
+
+###### 2.4.3 For dosage level 2mg, there is no difference in effect of tooth growth length by OJ and VC.
